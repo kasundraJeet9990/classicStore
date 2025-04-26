@@ -1,84 +1,100 @@
-# Turborepo starter
+# device table
+device_uid
+device_ip
+status
+device_type
+operating_system
+locked_reason
+failed_attempts
+location
+is_locked
+locked_at
+last_seen
+created_at
 
-This Turborepo starter is maintained by the Turborepo core team.
 
-## Using this example
+# session table 
+session_uid
+user_uid
+device_uid
+session_token
+type
+user_agent
+last_active_at
+login_method
+is_authenticated
+is_active
+expired_at
+created_at
 
-Run the following command:
 
-```sh
-npx create-turbo@latest
-```
+# user table
+user_uid
+username
+phone_number
+email_verified
+auth_provider
+google_id
+facebook_id,
+email
+password_hash
+last_login
+created_at
+updated_at
 
-## What's inside?
 
-This Turborepo includes the following packages/apps:
+# anonymous user (if cookies accepted)
+anonymous_uid
+device_uid
+last_active_at
+created_at
 
-### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+# addresses
+address_uid
+user_uid
+anonymous_uid
+street_address
+city_uid
+state_uid
+country_uid
+is_default
+postal_code
+created_at
+updated_at
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-### Utilities
+# countries
+country_uid
+name
+code
+created_at
+updated_at
 
-This Turborepo has some additional tools already setup for you:
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+# states
+state_uid
+name
+country_uid
+created_at
+updated_at
 
-### Build
 
-To build all apps and packages, run the following command:
+# cities
+city_uid
+name
+state_uid
+created_at
+updated_at
 
-```
-cd my-turborepo
-pnpm build
-```
 
-### Develop
+# cases
+only added country start and city order avaliable
+one device multi user login after one logout
+one user login multi device
+for seccutity reason add failed attempts for any not valid activity for device lock for 5 minutes not lock user device are locked
 
-To develop all apps and packages, run the following command:
 
-```
-cd my-turborepo
-pnpm dev
-```
+ay issues and any more cases for e-commerce web app 
 
-### Remote Caching
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/docs/reference/command-line-reference)
