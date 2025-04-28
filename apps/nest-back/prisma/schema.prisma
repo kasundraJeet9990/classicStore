@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Article {
+  articles_uid    String   @id @default(uuid())
+  title           String
+  content         String
+  featured_image  String
+  published_at    BigInt   @default(0)
+  created_at      BigInt   @default(0)
+  updated_at      BigInt   @default(0)
+
+  taggedArticles  TaggedArticle[]
+  views           ArticleView[]
+  likes           ArticleLike[]
+  reads           ArticleRead[]
+}
+
+model ArticleTag {
+  tags_uid   String   @id @default(uuid())
+  name       String   @unique
+  created_at BigInt   @default(0)
+  updated_at BigInt   @default(0)
+
+  taggedArticles TaggedArticle[]
+}
+
+model TaggedArticle {
+  tagged_articles_uid String   @id @default(uuid())
+  articles_uid        String
+  tags_uid            String
+  created_at          BigInt   @default(0)
+  updated_at          BigInt   @default(0)
+
+  article Article   @relation(fields: [articles_uid], references: [articles_uid])
+  tag     ArticleTag @relation(fields: [tags_uid], references: [tags_uid])
+
+  @@unique([articles_uid, tags_uid])
+}
+
+model ArticleView {
+  article_views_uid String   @id @default(uuid())
+  articles_uid      String
+  user_uid          String
+  viewed_at         BigInt   @default(0)
+
+  article Article @relation(fields: [articles_uid], references: [articles_uid])
+}
+
+model ArticleLike {
+  article_likes_uid String   @id @default(uuid())
+  articles_uid      String
+  user_uid          String
+  liked_at          BigInt   @default(0)
+
+  article Article @relation(fields: [articles_uid], references: [articles_uid])
+}
+
+model ArticleRead {
+  article_reads_uid String   @id @default(uuid())
+  articles_uid      String
+  user_uid          String
+  scroll_percentage Float
+  read_at           BigInt   @default(0)
+
+  article Article @relation(fields: [articles_uid], references: [articles_uid])
+}

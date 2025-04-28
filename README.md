@@ -215,6 +215,17 @@ category_uid
 is_active
 created_at
 
+# cart_items
+cart_item_uid
+user_uid
+product_uid
+product_color_uid
+product_size_uid
+quantity
+price
+created_at
+updated_at
+
 # colors
 colors_uid
 name
@@ -222,7 +233,6 @@ hex_code
 is_active
 created_at
 updated_at
-
 
 # sizes
 sizes_uid
@@ -311,6 +321,13 @@ rating
 comment
 created_at
 
+
+
+
+
+
+
+
 # cases
 only added country start and city order avaliable
 one device multi user login after one logout
@@ -326,3 +343,59 @@ ay issues and any more cases for e-commerce web app
   12.  with login cart save and and order all reqired filed and enter mobile send otp and vefired after anonymous to user redict and payment process
   13.  with out login ask login and if login sucess all anonymous data are convert in user and delete anonymous data
   14.  sign-up/sign-in google login,facebook login,email or phone number
+
+
+
+
+# left 
+Order
+payment
+CMS
+coupon code
+
+
+
+src/
+├── main.ts
+├── app.module.ts
+├── config/
+│   └── config.module.ts
+│   └── config.service.ts
+│   └── *.config.ts  # e.g. database.config.ts, auth.config.ts
+├── common/
+│   ├── decorators/
+│   ├── exceptions/
+│   ├── filters/
+│   ├── guards/
+│   ├── interceptors/
+│   └── utils/
+├── core/  # Global providers/services
+│   └── logger/
+│   └── http/
+├── modules/
+│   ├── auth/
+│   │   ├── auth.module.ts
+│   │   ├── auth.service.ts
+│   │   ├── auth.controller.ts
+│   │   └── strategies/
+│   ├── users/
+│   │   ├── users.module.ts
+│   │   ├── users.service.ts
+│   │   ├── users.controller.ts
+│   │   └── dto/
+│   │   └── entities/
+│   └── posts/
+│       ├── posts.module.ts
+│       ├── posts.service.ts
+│       ├── posts.controller.ts
+│       └── dto/
+│       └── entities/
+├── database/
+│   ├── database.module.ts
+│   ├── prisma.service.ts (or typeorm/mongoose depending)
+│   └── migrations/
+├── interfaces/
+│   └── global interfaces or enums
+├── tests/
+│   └── unit/
+│   └── e2e/
