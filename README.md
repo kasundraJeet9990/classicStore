@@ -399,3 +399,10 @@ src/
 ├── tests/
 │   └── unit/
 │   └── e2e/
+
+
+docker run --name my-postgres -e POSTGRES_USER=johndoe -e POSTGRES_PASSWORD=randompassword -e POSTGRES_DB=mydb -p 5432:5432 -d postgres
+docker exec -it my-postgres psql -U johndoe -d mydb
+
+Blaupunkt BH61
+https://amzn.in/d/c5lM1od

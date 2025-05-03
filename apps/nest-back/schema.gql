@@ -1,0 +1,48 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Article {
+  """Article UUID"""
+  articles_uid: ID!
+
+  """Article title"""
+  title: String!
+
+  """Article content"""
+  content: String!
+
+  """Article featured image URL"""
+  featured_image: String!
+
+  """Published at (Unix timestamp)"""
+  published_at: Float!
+
+  """Created at (Unix timestamp)"""
+  created_at: Float!
+
+  """Updated at (Unix timestamp)"""
+  updated_at: Float!
+}
+
+type Query {
+  findAllArticles: [Article!]!
+  article(id: Int!): Article!
+}
+
+type Mutation {
+  createArticle(createArticleInput: CreateArticleInput!): Article!
+  updateArticle(updateArticleInput: UpdateArticleInput!): Article!
+  removeArticle(id: Int!): Article!
+}
+
+input CreateArticleInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateArticleInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
