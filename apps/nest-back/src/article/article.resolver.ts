@@ -23,8 +23,6 @@ export class ArticleResolver {
     return this.articleService.create(createArticleInput);
   }
 
- 
- 
   @Mutation(() => Article)
   updateArticle(@Args('updateArticleInput') updateArticleInput: UpdateArticleInput) {
     return this.articleService.update(updateArticleInput.id, updateArticleInput);
