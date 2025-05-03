@@ -17,6 +17,7 @@ datasource db {
 model Article {
   articles_uid    String   @id @default(uuid(7))
   title           String
+  description     String
   content         String
   featured_image  String
   published_at    BigInt   @default(0)

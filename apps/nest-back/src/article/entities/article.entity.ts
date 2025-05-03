@@ -12,6 +12,9 @@ export class Article {
   @Field(() => String, { description: 'Title of the article' })
   title: string;
 
+  @Field(() => String, { description: 'Description of the article' })
+  description: string;
+
   @Field(() => String, { description: 'Main content of the article (in text or HTML format)' })
   content: string;
 
