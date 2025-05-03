@@ -1,98 +1,151 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+hii chatgpt, i crete backend useing nest js(for E-commrces) and prisma(postgres) and use of graphql example of my prisma
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
 
-## Description
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+model Article {
+  articles_uid    String   @id @default(uuid())
+  title           String
+  content         String
+  featured_image  String
+  published_at    BigInt   @default(0)
+  created_at      BigInt   @default(0)
+  updated_at      BigInt   @default(0)
 
-## Project setup
+  taggedArticles  TaggedArticle[]
+  views           ArticleView[]
+  likes           ArticleLike[]
+  reads           ArticleRead[]
+}
 
-```bash
-$ pnpm install
-```
+model ArticleTag {
+  tags_uid   String   @id @default(uuid())
+  name       String   @unique
+  created_at BigInt   @default(0)
+  updated_at BigInt   @default(0)
 
-## Compile and run the project
+  taggedArticles TaggedArticle[]
+}
 
-```bash
-# development
-$ pnpm run start
+model TaggedArticle {
+  tagged_articles_uid String   @id @default(uuid())
+  articles_uid        String
+  tags_uid            String
+  created_at          BigInt   @default(0)
+  updated_at          BigInt   @default(0)
 
-# watch mode
-$ pnpm run start:dev
+  article Article   @relation(fields: [articles_uid], references: [articles_uid])
+  tag     ArticleTag @relation(fields: [tags_uid], references: [tags_uid])
 
-# production mode
-$ pnpm run start:prod
-```
+  @@unique([articles_uid, tags_uid])
+}
 
-## Run tests
+model ArticleView {
+  article_views_uid String   @id @default(uuid())
+  articles_uid      String
+  user_uid          String
+  viewed_at         BigInt   @default(0)
 
-```bash
-# unit tests
-$ pnpm run test
+  article Article @relation(fields: [articles_uid], references: [articles_uid])
+}
 
-# e2e tests
-$ pnpm run test:e2e
+model ArticleLike {
+  article_likes_uid String   @id @default(uuid())
+  articles_uid      String
+  user_uid          String
+  liked_at          BigInt   @default(0)
 
-# test coverage
-$ pnpm run test:cov
-```
+  article Article @relation(fields: [articles_uid], references: [articles_uid])
+}
 
-## Deployment
+model ArticleRead {
+  article_reads_uid String   @id @default(uuid())
+  articles_uid      String
+  user_uid          String
+  scroll_percentage Float
+  read_at           BigInt   @default(0)
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+  article Article @relation(fields: [articles_uid], references: [articles_uid])
+}
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+i crete Article crud useing `nest g resource` current use only dummy Article array for pratice and after connect with prisma and crete full crud 
 
-```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
-```
+* i crete some thing like this is entities
+import { ObjectType, Field, ID, Float } from '@nestjs/graphql';
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+@ObjectType()
+export class Article {
+  @Field(() => ID, { description: 'Article UUID' })
+  articles_uid: string;
 
-## Resources
+  @Field(() => String, { description: 'Article title' })
+  title: string;
 
-Check out a few resources that may come in handy when working with NestJS:
+  @Field(() => String, { description: 'Article content' })
+  content: string;
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+  @Field(() => String, { description: 'Article featured image URL' })
+  featured_image: string;
 
-## Support
+  @Field(() => Float, { description: 'Published at (Unix timestamp)' })
+  published_at: number;
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+  @Field(() => Float, { description: 'Created at (Unix timestamp)' })
+  created_at: number;
 
-## Stay in touch
+  @Field(() => Float, { description: 'Updated at (Unix timestamp)' })
+  updated_at?: number;
+}
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+this is service 
 
-## License
+import { Injectable } from '@nestjs/common';
+import { CreateArticleInput } from './dto/create-article.input';
+import { UpdateArticleInput } from './dto/update-article.input';
+import { Article } from './entities/article.entity';
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+@Injectable()
+export class ArticleService {
+  private articles: Article[] = [
+    {
+      articles_uid: 'f81d4fae-7dec-11d0-a765-00a0c91e6bf6',
+      title: 'Article 1',
+      content: 'Content 1',
+      featured_image: '',
+      published_at: 1672531200,
+      created_at: 1672531200,
+    }
+  ];
+
+  create(createArticleInput: CreateArticleInput) {
+    return 'This action adds a new article';
+  }
+
+  findAll(): Article[] {
+    return this.articles;
+  }
+
+  findOne(id: number) {
+    return `This action returns a #${id} article`;
+  }
+
+  update(id: number, updateArticleInput: UpdateArticleInput) {
+    return `This action updates a #${id} article`;
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} article`;
+  }
+}
+
+
+crete all article crud 

@@ -3,7 +3,6 @@ import { CreateArticleInput } from './dto/create-article.input';
 import { UpdateArticleInput } from './dto/update-article.input';
 import { Article } from './entities/article.entity';
 
-
 @Injectable()
 export class ArticleService {
   private articles: Article[] = [

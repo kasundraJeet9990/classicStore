@@ -15,7 +15,7 @@ datasource db {
 }
 
 model Article {
-  articles_uid    String   @id @default(uuid())
+  articles_uid    String   @id @default(uuid(7))
   title           String
   content         String
   featured_image  String
