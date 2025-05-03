@@ -15,7 +15,7 @@ datasource db {
 }
 
 model Article {
-  articles_uid    String   @id @default(uuid(7))
+  articles_uid    String   @id @default(uuid())
   title           String
   description     String
   content         String
