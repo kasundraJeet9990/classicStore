@@ -176,21 +176,21 @@ scroll_percentage
 read_at
 
 
-# banners
-banners_uid
-banner_image
-button_text
-button_link
-is_active
-created_at
-updated_at
+  # banners
+  banners_uid
+  banner_image
+  button_text
+  button_link
+  is_active
+  created_at
+  updated_at
 
 
-# banner_clicks
-banner_clicks_uid
-banners_uid
-user_uid
-clicked_at
+  # banner_clicks
+  banner_clicks_uid
+  banners_uid
+  user_uid
+  clicked_at
 
 
 
