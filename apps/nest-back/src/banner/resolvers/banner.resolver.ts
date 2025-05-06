@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Float } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args,  ID } from '@nestjs/graphql';
 import { BannerService } from '../services';
 import { Banner } from '../entities';
 import { CreateBannerInput , UpdateBannerInput } from '../dto';
@@ -18,7 +18,7 @@ export class BannerResolver {
   }
 
   @Query(() => Banner, { name: 'banner' })
-  findOne(@Args('banner_id', { type: () => Float }) id: string) {
+  findOne(@Args('banner_id', { type: () => ID }) id: string) {
     return this.bannerService.findOne(id);
   }
 
@@ -28,7 +28,7 @@ export class BannerResolver {
   }
 
   @Mutation(() => Banner)
-  removeBanner(@Args('banner_id', { type: () => Float }) id: string) {
+  removeBanner(@Args('banner_id', { type: () => ID }) id: string) {
     return this.bannerService.remove(id);
   }
 }

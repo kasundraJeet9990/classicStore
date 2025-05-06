@@ -179,9 +179,11 @@ read_at
   # banners
   banners_uid
   banner_image
-  button_text
-  button_link
-  is_active
+  banner_alt
+  banner_link
+  is_enabled
+  start_at
+  end_at
   created_at
   updated_at
 
