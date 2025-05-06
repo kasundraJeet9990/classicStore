@@ -14,68 +14,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Article {
-  articles_uid    String   @id @default(uuid())
-  title           String
-  description     String
-  content         String
-  featured_image  String
-  published_at    BigInt   @default(0)
-  created_at      BigInt   @default(0)
-  updated_at      BigInt   @default(0)
+model Banner {
+  banners_uid  String   @id @default(uuid())
+  banner_image String
+  banner_alt   String
+  banner_link  String
+  is_enabled   Boolean
+  start_at     DateTime
+  end_at       DateTime
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
 
-  taggedArticles  TaggedArticle[]
-  views           ArticleView[]
-  likes           ArticleLike[]
-  reads           ArticleRead[]
+  BannerClicks BannerClick[]
 }
 
-model ArticleTag {
-  tags_uid   String   @id @default(uuid())
-  name       String   @unique
-  created_at BigInt   @default(0)
-  updated_at BigInt   @default(0)
+model BannerClick {
+  banner_clicks_uid String   @id @default(uuid())
+  banners_uid       String
+  user_uid          String 
+  clicked_at        DateTime
 
-  taggedArticles TaggedArticle[]
-}
+  Banner Banner @relation(fields: [banners_uid], references: [banners_uid], onDelete: Cascade)
 
-model TaggedArticle {
-  tagged_articles_uid String   @id @default(uuid())
-  articles_uid        String
-  tags_uid            String
-  created_at          BigInt   @default(0)
-  updated_at          BigInt   @default(0)
-
-  article Article   @relation(fields: [articles_uid], references: [articles_uid])
-  tag     ArticleTag @relation(fields: [tags_uid], references: [tags_uid])
-
-  @@unique([articles_uid, tags_uid])
-}
-
-model ArticleView {
-  article_views_uid String   @id @default(uuid())
-  articles_uid      String
-  user_uid          String
-  viewed_at         BigInt   @default(0)
-
-  article Article @relation(fields: [articles_uid], references: [articles_uid])
-}
-
-model ArticleLike {
-  article_likes_uid String   @id @default(uuid())
-  articles_uid      String
-  user_uid          String
-  liked_at          BigInt   @default(0)
-
-  article Article @relation(fields: [articles_uid], references: [articles_uid])
-}
-
-model ArticleRead {
-  article_reads_uid String   @id @default(uuid())
-  articles_uid      String
-  user_uid          String
-  scroll_percentage Float
-  read_at           BigInt   @default(0)
-
-  article Article @relation(fields: [articles_uid], references: [articles_uid])
+  @@index([banners_uid])
 }

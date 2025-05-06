@@ -1,2 +1,21 @@
 Banner 06/05/2025
 
+# banners
+  banners_uid - uid
+  banner_image - path
+  banner_alt - string
+  banner_link - string
+  is_enabled - boolean
+  start_at - timestamp(1746546921)
+  end_at  - timestamp(1746546921)
+  created_at - timestamp(1746546921)
+  updated_at - timestamp(1746546921)
+
+
+# banner_clicks
+  banner_clicks_uid - uid
+  banners_uid - banners tables banner uid
+  user_uid - click user user uId(current i have not user table )
+  clicked_at - timestamp(1746546921)
+
+
