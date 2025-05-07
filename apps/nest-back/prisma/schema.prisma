@@ -15,26 +15,26 @@ datasource db {
 }
 
 model Banner {
-  banners_uid  String   @id @default(uuid())
+  banner_uid  String   @id @default(uuid())
   banner_image String
   banner_alt   String
   banner_link  String
   is_enabled   Boolean
-  start_at     DateTime
-  end_at       DateTime
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
+  start_at     BigInt
+  end_at       BigInt
+  created_at   BigInt 
+  updated_at   BigInt 
 
   BannerClicks BannerClick[]
 }
 
 model BannerClick {
   banner_clicks_uid String   @id @default(uuid())
-  banners_uid       String
+  banner_uid       String
   user_uid          String 
-  clicked_at        DateTime
+  clicked_at        BigInt 
 
-  Banner Banner @relation(fields: [banners_uid], references: [banners_uid], onDelete: Cascade)
+  Banner Banner @relation(fields: [banner_uid], references: [banner_uid], onDelete: Cascade)
 
-  @@index([banners_uid])
+  @@index([banner_uid])
 }
