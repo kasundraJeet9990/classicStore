@@ -1,14 +1,21 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../prisma.service';
 import { CreateBannerInput , UpdateBannerInput } from '../dto';
 
 @Injectable()
 export class BannerService {
+  constructor(private prisma: PrismaService) {}
+
   create(createBannerInput: CreateBannerInput) {
     return 'This action adds a new banner';
   }
 
   findAll() {
-    return [{banner_uid: '122'}];
+    return this.prisma.banner.findMany({
+      include: {
+        BannerClicks: true
+      }
+    });
   }
 
   findOne(id: number) {

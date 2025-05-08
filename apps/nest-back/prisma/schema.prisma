@@ -19,7 +19,7 @@ model Banner {
   banner_image String
   banner_alt   String
   banner_link  String
-  is_enabled   Boolean
+  is_enabled   Boolean @default(true)
   start_at     BigInt
   end_at       BigInt
   created_at   BigInt 

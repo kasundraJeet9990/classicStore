@@ -1,4 +1,5 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { BannerClick } from './banner-click.entity'
 
 @ObjectType()
 export class Banner {
@@ -28,4 +29,7 @@ export class Banner {
 
   @Field(() => Number)
   updated_at: number;
+
+  @Field(() => [BannerClick])
+  BannerClicks: BannerClick[];
 }
