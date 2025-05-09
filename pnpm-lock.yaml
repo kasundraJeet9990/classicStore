@@ -44,6 +44,12 @@ importers:
       graphql:
         specifier: ^16.11.0
         version: 16.11.0
+      graphql-scalars:
+        specifier: ^1.24.2
+        version: 1.24.2(graphql@16.11.0)
+      json-bigint-patch:
+        specifier: ^0.0.8
+        version: 0.0.8
       mercurius:
         specifier: ^16.1.0
         version: 16.1.0(graphql@16.11.0)
@@ -4192,6 +4198,12 @@ packages:
     peerDependencies:
       graphql: '>=15'
 
+  graphql-scalars@1.24.2:
+    resolution: {integrity: sha512-FoZ11yxIauEnH0E5rCUkhDXHVn/A6BBfovJdimRZCQlFCl+h7aVvarKmI15zG4VtQunmCDdqdtNs6ixThy3uAg==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+
   graphql-tag@2.12.6:
     resolution: {integrity: sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==}
     engines: {node: '>=10'}
@@ -4717,6 +4729,9 @@ packages:
     resolution: {integrity: sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA==}
     engines: {node: '>=6'}
     hasBin: true
+
+  json-bigint-patch@0.0.8:
+    resolution: {integrity: sha512-xa0LTQsyaq8awYyZyuUsporWisZFiyqzxGW8CKM3t7oouf0GFAKYJnqAm6e9NLNBQOCtOLvy614DEiRX/rPbnA==}
 
   json-buffer@3.0.1:
     resolution: {integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==}
@@ -11777,6 +11792,11 @@ snapshots:
       lodash.merge: 4.6.2
       lodash.mergewith: 4.6.2
 
+  graphql-scalars@1.24.2(graphql@16.11.0):
+    dependencies:
+      graphql: 16.11.0
+      tslib: 2.8.1
+
   graphql-tag@2.12.6(graphql@16.11.0):
     dependencies:
       graphql: 16.11.0
@@ -12438,6 +12458,8 @@ snapshots:
       argparse: 2.0.1
 
   jsesc@3.1.0: {}
+
+  json-bigint-patch@0.0.8: {}
 
   json-buffer@3.0.1: {}
 
